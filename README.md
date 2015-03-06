@@ -16,12 +16,6 @@ git merge --no-ff [branch]:
 <pre>git mrg [branch] </pre>
 
 # Using south migration
-South handles migrations for the following apps:
-* survey
-* trip
-* standardize
-* trip_book
-* krypdos
 
 ## South Wiki
 http://south.readthedocs.org/en/latest/
