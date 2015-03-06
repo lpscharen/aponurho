@@ -1,0 +1,36 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Add Escort Dates{%endblock%}
+
+{%block maincell%}
+  <table align=center border=1>
+    {%for shift in shifts%}
+      <tr>
+        <td>{{shift.date}}</td>
+        <td>{%if shift.shift%}B{%else%}A{%endif%}</td>
+        <td><a href="deleteescort?id={{shift.id}}">Remove</a></td>
+      </tr>
+    {%endfor%}
+  </table>
+  <br />
+  <form action="addescort" method=post>
+    {%csrf_token%}
+    <center>
+      <select name="month">
+        {%for month in months%}
+          <option value="{{month.0}}">{{month.1}}</option>
+        {%endfor%}
+      </select>
+      <select name="day">
+        {%for day in days%}
+          <option value="{{day}}">{{day}}</option>
+        {%endfor%}
+      </select>
+      <input type="hidden" name="year" value="{{year}}" /> {{year}}
+    </center> 
+    <center>
+      <input class="button" type="submit" value="Add Date" />
+    </center>
+    <br /> 
+  </form>
+{%endblock%}

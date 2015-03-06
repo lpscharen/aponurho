@@ -1,0 +1,54 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Family Roster{%endblock%}
+
+{%block bodytags%}onLoad="refreshFamilyRoster();"{%endblock%}
+
+{%block scripts%}
+  <script language="javascript">
+    function refreshFamilyRoster()
+    {
+      if(window.XMLHttpRequest)
+      {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+      }
+      else
+      {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      xmlhttp.onreadystatechange = function()
+      {
+        if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+        {
+          document.getElementById("mainTable").innerHTML = xmlhttp.responseText;
+        }
+      }
+
+      url = "familyrostercontents/" + document.mainForm.elements["family"].value;
+
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+    }
+  </script>
+{%endblock%}
+
+{%block maincell%}
+  <br />
+  <form name="mainForm">
+    <center>
+      <select name="family" onchange="refreshFamilyRoster();">
+        {%for family in families%}
+          <option value="{{family.id}}"{%if family.id == familyid%} selected{%endif%}>
+            {{family.name}}
+          </option>
+        {%endfor%}
+      </select>
+    </center>
+  </form>
+  <div id="mainTable" align="center">
+  </div>
+  <br />
+{%endblock%}

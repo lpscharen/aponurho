@@ -1,0 +1,54 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Record Meetings{%endblock%}
+
+{%block maincell%}
+  {%if mymeetings%}
+    <br />
+    <table border=1 align=center>
+      <caption>Meetings Attended</caption>
+      <tr>
+        <td>Date</td>
+        <td>Type</td>
+        <td>Remove?</td>
+      </tr>
+      {%for meeting in mymeetings%}
+        <tr>
+          <td>{{meeting.date}}</td>
+          <td>{%if meeting.brother%}Brother's{%else%}Exec{%endif%}</td>
+          <td><a href="doremovemeeting?id={{meeting.id}}">Remove</a></td>
+        </tr>
+      {%endfor%}
+    </table>
+  {%endif%}
+  <br />
+  <center>Exec Meetings</center>
+  <form action="doaddmeeting" method=post>
+    {%csrf_token%}
+    <center>
+      <select name="id">
+        {%for meeting in execmeetings%}
+          <option value="{{meeting.id}}">{{meeting.date}}</option>
+        {%endfor%}
+      </select>
+    </center><br />
+    <center>
+      <input class="button" type="submit" name="submitbutton" value="Record" />
+    </center>
+  </form>
+  <br />
+  <center>Brother's Meetings:</center>
+  <form action="doaddmeeting" method=post>
+    {%csrf_token%}
+    <center>
+      <select name="id">
+        {%for meeting in brothermeetings%}
+          <option value="{{meeting.id}}">{{meeting.date}}</option>
+        {%endfor%}
+      </select>
+    </center><br />
+    <center>
+      <input class="button" type="submit" name="submitbutton" value="Record" />
+    </center>
+  </form>
+{%endblock%}

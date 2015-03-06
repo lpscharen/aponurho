@@ -1,0 +1,80 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Welcome, {{userobj.firstName}}!{%endblock%}
+
+{%block maincell%}
+{%if message%}
+  <center><h5>{{message}}</h5></center>
+{%endif%}
+<br />
+{%if userobj.family == None%}
+  <center>
+    <h4>
+      Please <a href="/editprofile">let us know</a> what family you're in.
+    </h4>
+  </center>
+  <br />
+{%endif%}
+{%if not currentsemester%}
+  <center>No current semester.</center>
+{%else%}
+  {%if userobj.isalum%}
+    <center>You're an alumni.</center><br />
+  {%else%}
+    {%if upcomingevents%}
+      <div align=center><h4>Upcoming Events</h4></div>
+      <table align=center border=1 width=400px>
+        <tr>
+          <td>
+            <div align=center>Event</div>
+          </td>
+          <td>
+            <div align=center>Date</div>
+          </td>
+        </tr>
+        {%for event in upcomingevents%}
+          <tr>
+            <td>
+              <div align=center>{{event.name}}</div>
+            </td>
+            <td>
+              <div align=center>{{event.date}}</div>
+            </td>
+          </tr>
+        {%endfor%}
+      </table>
+    {%endif%}
+	{%if not semreqs %}
+	  <center>Not enrolled in current semester.</center>
+	  <br>
+	  <center>Enroll in {{currentsemester.name}}:</center><br>
+	  <form action="enroll" method="post">
+		{%csrf_token%}
+		<input type="hidden" name="semestername" value="{{currentsemester.name}}">
+		<center>
+		  <input type="radio" name="status" value="active" checked=""> Active
+		  <input type="radio" name="status" value="associate"> Associate
+		  <input type="radio" name="status" value="abroad"> Abroad
+		</center>
+		<br />
+		<center>
+		  <input class="button" type="submit" name="submitbutton" value="Enroll">
+		</center>
+	  </form>
+	{%else%}
+	  <center><h3>{{semreqs.semester.name}}</h3></center>
+	  {%if semreqs.remainingRequirements and probation%}
+		<center><h4><font color="#FF0000">You are on probation until you finish all make-up requirements and all requirements for this semester.</font></h4></center>
+	  {%endif%}
+	  {%include "aponurho/increqs.html"%}
+	{%endif%}
+  {%endif%}
+<center>Total hours this semester: {{totalhours}}!</center><br />
+{%endif%}
+{%if semreqs and canRegister %}
+  <!-- {%if semreqs.active < 2%}
+    <center><small><a href="changeactive">{%if semreqs.active == 0%}Change to Active{%else%}Change to Associate{%endif%}</a></small></center>
+  {%endif%} -->
+  <center><small><a href="unregister?sure=0">Unregister</a></small></center>
+{%endif%}
+{%endblock%}

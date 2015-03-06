@@ -1,0 +1,36 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Contact Us{%endblock%}
+
+{%block maincell%}
+  <br />
+  <form action="doContact" method=post> 
+    {%csrf_token%}
+    <table align=center> 
+      <caption>Contact Us:</caption> 
+      <tr>
+        <td>
+          <center>
+            <select name="userid">
+              {%for member in execmembers%}
+                <option value="{{member.user.id}}">{{member.position}}: {{member.user.name}}</option>
+              {%endfor%}
+            </select>
+          </center>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=20 cols=60 name=comment></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <center>
+            <input class="button" type="submit" name="submitbutton" value="Send" />
+          </center>
+        </td>
+      </tr> 
+    </table> 
+  </form>
+{%endblock%}

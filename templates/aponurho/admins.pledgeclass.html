@@ -1,0 +1,36 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Add Pledge Class{%endblock%}
+
+{%block maincell%}
+  <br />
+  <table align=center border=1>
+    <tr>
+      <td align=center>Class</td>
+      <td align=center>Semester</td>
+    </tr>
+    {%for class in classes%}
+      <tr>
+        <td align=center>{{class.name}}</td>
+        <td align=center>{{class.semester.name}}</td>
+      </tr>
+    {%endfor%}
+  </table>
+  <br />
+  {%if not currentclass%}
+  <form action="addpledgeclass" method=post>
+    {%csrf_token%}
+    <center>
+      <h4>Add Current Pledge Class</h4>
+    </center> 
+    <center>
+      <input type="text" name="classname" />
+    </center>
+    <br /> 
+    <center>
+      <input class="button" type="submit" name="submitbutton" value="Add Pledge Class" />
+    </center>
+    <br /> 
+  </form>
+  {%endif%}
+{%endblock%}

@@ -1,0 +1,60 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Add Philanthropy{%endblock%}
+
+{%block maincell%}
+<table align=center border=1>
+  <tr>
+    <td>
+      Philanthropy
+    </td>
+    <td>
+      Date
+    </td>
+    <td>
+      Remove
+    </td>
+  </tr>
+  {%for philanthropy in philanthropies%}
+    <tr>
+      <td>
+        {{philanthropy.name}}
+      </td>
+      <td>
+        {{philanthropy.date}}
+      </td>
+      <td>
+        <a href="doremovephilanthropy?id={{philanthropy.id}}">Remove</a>
+      </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+<form action="doaddphilanthropy" method="post">
+  {%csrf_token%}
+  <center>
+    Add Philanthropy
+  </center>
+  <center>
+    Philanthropy Name: 
+    <input type="text" name="name" value="" />
+    <select name="month">
+      {%for month in months%}
+        <option value="{{month.0}}">
+          {{month.1}}
+        </option>
+      {%endfor%}
+    </select>
+    <select name="day">
+      {%for day in days%}
+        <option value="{{day}}">{{day}}</option>
+      {%endfor%}
+    </select>
+    <input type="hidden" name="year" value="{{year}}" />
+    {{year}}
+  </center>
+  <center>
+    <input class="button" type="submit" name="submitbutton" value="Add Philanthropy" />
+  </center> 
+</form>
+{%endblock%}

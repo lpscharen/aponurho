@@ -1,0 +1,69 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Change Semester{%endblock%}
+
+{%block maincell%}
+  {%if activesemester%}
+    <br />
+    <center>
+      Current Semester: {{activesemester.name}}
+    </center>
+    <br />
+    <center>
+      <a href="endsemester">End Active Semester</a>
+    </center>
+  {%else%}
+    <br />
+    <center>No active semester.</center>
+    <br />
+    <center>Set Active Semester:</center>
+    <form action="setactivesemester" method="post">
+      {%csrf_token%}
+      <center>
+        <select name="id">
+          {%for semester in semesters%}
+            <option value="{{semester.id}}">{{semester.name}}</option>
+          {%endfor%}
+        </select>
+      </center>
+      <center>
+        <input class="button" type="submit" name="submitbutton" value="Set Semester" />
+      </center>
+    </form>
+  {%endif%}
+  <br />
+  <form action="addsemester" method=post>
+    {%csrf_token%}
+    <center>
+      Semester: 
+      <select name="semester" >
+        <option value="Fall">Fall</option>
+        <option value="Spring">Spring</option>
+      </select>
+    </center> 
+    <center>
+      Year: <input type="text" name="year" />
+    </center> 
+    <center>
+      Set Semester Requirements:
+    </center> 
+    <center>
+      Service Requirements: <input type="text" name="service" /> Hours
+    </center> 
+    <center>
+      Meeting Requirements: <input type="text" name="meetings" /> Meetings
+    </center> 
+    <center>
+      Weekend Escort Requirements: <input type="text" name="escort" /> Shifts
+    </center>
+    <center>
+      Escort Minimum Hours Requirements: <input type="text" name="escort_hours" /> Hours
+    </center>
+    <center>
+      Date of Sixth Meeting (mm/dd/yyyy): <input type="text" name="meetingSixDate" />
+    </center>
+    <center>
+      <input class="button" type="submit" name="submitbutton" value="Add Semester" />
+    </center> 
+  </form>
+{%endblock%}

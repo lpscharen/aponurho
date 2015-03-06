@@ -1,0 +1,186 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script language="JavaScript">
+$(".nocheck").click(function () {
+    return false;
+});
+</script>
+{%if probreqs%}
+  <table width=400 align=center cellspacing=10>
+    <caption>
+      <font color="#FF0000">Probation Requirements</font>
+      <h5>The following are the requirements you need to complete to go off probation.</h5>
+    </caption>
+    {%if probreqs.duesReqP%}
+      <tr>
+        <td>
+          {%if probreqs.duesP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Dues: {%if probreqs.duesP%}Done{%else%}Not Paid{%endif%}
+        </td>
+      </tr>
+    {%endif%}
+    {%if probreqs.serviceReqP > 0%}
+      <tr>
+        <td>
+          {%if probreqs.serviceP >= probreqs.serviceReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Countable Hours of Service: {{probreqs.serviceP}}/{{probreqs.serviceReqP}}
+        </td>
+      </tr>
+    {%endif%}
+	{%if probreqs.escortHoursReqP > 0%}
+      <tr>
+        <td>
+          {%if probreqs.escortHoursP >= probreqs.escortHoursReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Hours of Escort: {{probreqs.escortHoursP}}/{{probreqs.escortHoursReqP}}
+        </td>
+      </tr>
+    {%endif%}
+    {%if probreqs.committeeReqP%}
+      <tr>
+        <td>
+          {%if probreqs.committeeP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Committee Credit: {%if probreqs.committeeP%}Done{%else%}Not Done{%endif%}
+        </td>
+      </tr>
+    {%endif%}
+    {%if probreqs.meetingReqP > 0%}
+      <tr>
+        <td>
+          {%if probreqs.meetingP >= probreqs.meetingReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Meetings Attended: {{probreqs.meetingP}}/{{probreqs.meetingReqP}}
+        </td>
+      </tr>
+    {%endif%}
+    {%if probreqs.escortReqP > 0%}
+      <tr>
+        <td>
+          {%if probreqs.escortP >= probreqs.escortReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Weekend Escort Shifts: {{probreqs.escortP}}/{{probreqs.escortReqP}}
+        </td>
+      </tr>
+    {%endif%}
+    {%if probreqs.philanthropyReqP%}
+      <tr>
+        <td>
+          {%if probreqs.philanthropyP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; Philanthropy: {%if probreqs.philanthropyP%}Done{%else%}Not Done{%endif%}
+        </td>
+      </tr>
+    {%endif%}
+  </table><br /><br />
+{%endif%}
+
+{%if semreqs.active == 2%}
+  <center>Abroad this semester - no reqs!</center><br /><br />
+{%else%}
+  <table width=400 align=center cellspacing=10>
+    <caption>
+      Requirements
+    </caption>
+    <tr>
+      <td>
+        {%if semreqs.duesP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+        &nbsp;&nbsp; Dues: {%if semreqs.duesP%}Done{%else%}Not Paid{%endif%}
+      </td>
+    </tr>
+    {%if semreqs.active == 1%}
+      <tr>
+        <td>
+          {%if semreqs.serviceP >= semreqs.serviceReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp;
+	<a href="service">Countable Hours of Service:</a> {{semreqs.serviceP}}/{{semreqs.serviceReqP}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.escortHoursP >= semreqs.escortHoursReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp;
+	<a href="service">Hours of Escort:</a> {{semreqs.escortHoursP}}/{{semreqs.escortHoursReqP}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.committeeP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp;
+	<a href="reqs/committee">Committee Credit:</a> {%if semreqs.committeeP%}Done{%else%}Not Done{%endif%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.meetingP >= semreqs.meetingReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp;
+	<a href="reqs/meetings">Meetings Attended:</a> {{semreqs.meetingP}}/{{semreqs.meetingReqP}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.escortP >= semreqs.escortReqP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp;
+	<a href="service/escort">Weekend Escort Shifts:</a> {{semreqs.escortP}}/{{semreqs.escortReqP}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.philanthropyP%}
+			<input type="checkbox" checked="true" onclick="return false;"/>
+          {%else%}
+			<input type="checkbox" onclick="return false;"/>
+          {%endif%}
+          &nbsp;&nbsp; 
+	<a href="reqs/philanthropy">Philanthropy:</a> {%if semreqs.philanthropyP%}Done{%else%}Not Done{%endif%}
+        </td>
+      </tr>
+    {%endif%}
+  </table><br /><br />
+{%endif%}

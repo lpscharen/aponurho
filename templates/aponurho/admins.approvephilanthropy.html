@@ -1,0 +1,42 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Approve Philanthropy{%endblock%}
+
+{%block maincell%}
+{%if requests%}
+  <table align=center border=1>
+    <tr>
+      <td>
+        Requester
+      </td>
+      <td>
+        Philanthropy
+      </td>
+      <td>
+        Approve
+      </td>
+      <td>
+        Deny
+      </td>
+    </tr>
+    {%for request in requests%}
+      <tr>
+        <td>
+          {{request.user.name}}
+        </td>
+        <td>
+          {{request.philanthropy.name}}
+        </td> 
+        <td>
+          <a href="doapprovephilanthropy?userid={{request.user.id}}">Approve</a>
+        </td>
+        <td>
+          <a href="dodenyphilanthropy?userid={{request.user.id}}">Deny</a>
+        </td>
+      </tr>
+    {%endfor%}
+  </table>
+{%else%}
+  <center>No philanthropy requests to approve.</center>
+{%endif%}
+{%endblock%}

@@ -1,0 +1,96 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Submit Hazing Claims{%endblock%}
+
+{%block maincell%}
+<strong>Use this form to submit anonymous reports of possible hazing activity. We will investigate all reports of alleged hazing, but our ability to respond may be limited in cases of anonymous reports. We encourage you to supply us with a phone number and/or email address where we may contact you to obtain additional information if needed. We will keep your identity anonymous throughout the process.</strong>
+  <br />
+  <form action="dosubmithazing" method=post> 
+    {%csrf_token%}
+    <table align=center> 
+      <tr>
+        <td><br /> Date of incident/activity/behavior
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=7 cols=30 name="dateof"></textarea>
+        </td>
+      </tr>
+       <tr>
+        <td><br /> Location of incident/event/behavior
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=7 cols=30 name="location"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td><br /> If known, what is the name of the family involved?
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=7 cols=30 name="family"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td><br /> Please provide a detailed description of the incident/event/behavior.
+        </td>
+	</tr>
+        <tr>
+        <td>
+          <textarea rows=7 cols=30 name="description"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td><br /> How did you become aware of this event/behavior?
+        </td>
+        </tr>
+       <tr>
+        <td>
+          <textarea rows=7 cols=30 name="awareness"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td><br /> If you know the names of any individuals involved with, or aware of, this behavior/incident, please provide them.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=7 cols=30 name="names"></textarea>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><br /> Please provide any additional information about the incident/event/behavior (ex: How long has this activity been occurring? Is this activity a tradition?)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=7 cols=30 name="additional"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td><br /> Your phone number and/or email address (optional--providing this information allows us to contact you with follow-up questions or updates). You do not need to identify yourself if you choose to provide an email address or phone number. 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <textarea rows=7 cols=30 name="contact"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan = 2>
+          <center>
+            <input class="button" type="submit" name="submitbutton" value="Send" />
+          </center>
+        </td>
+      </tr> 
+    </table> 
+  </form>
+{%endblock%}

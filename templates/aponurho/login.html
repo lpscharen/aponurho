@@ -1,0 +1,60 @@
+{%extends "aponurho/basepage.html"%}
+
+{%block body%}
+<center><h1>APO Nu Rho</h1></center>
+<center>
+  &laquo;
+  <a href="createaccount">Create Account</a>
+  &nbsp;&nbsp;
+  <a href="resetpassword">Forgot Password?</a>
+  &raquo;
+</center>
+<br />
+<script language="Javascript" src="md5sum.js"></script>
+<script language="JavaScript">
+function submitLogin ()
+{
+var form = document.login;
+var pswd = form.password.value;
+var chal = form.challenge.value;
+form.hashedpswd.value = MD5(MD5(pswd) + chal);
+form.submitbutton.disabled = true;
+form.submitbutton.value = "Logging In...";
+return true;
+}
+</script>
+<form name="login" action="dologin" method="post" onsubmit="return submitLogin()">
+{%csrf_token%}
+<table align="center" width="300">
+  <caption>Login</caption>
+  <tr>
+    <td>
+      <center><font size=-1>{{message}}</font></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <center>Username: <input type="text" name="username"></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <center>
+        Password: <input type="password" name="password">
+      </center>
+      <input type="hidden" name="hashedpswd">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <center>
+        <input type="hidden" name="challenge" value="{{challenge}}">
+        <input class="button" type="submit" name="submitbutton" value="Log In">
+      </center>
+    </td>
+  </tr>
+</table>
+</form>
+<center><h5>Problems? Contact <a href="mailto:lpscharen@email.wm.edu">Logan Scharen</a>, <a href="mailto:nurhosecretary@gmail.com">Cara Minnix</a>, or <a href="mailto:mjbrown02@email.wm.edu">Michelle Brown</a>.</h5></center>
+{%endblock%}
+

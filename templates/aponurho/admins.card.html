@@ -1,0 +1,8 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}{{semreqs.user.name}}'s {{semreqs.semester.name}}{%endblock%}
+
+{%block maincell%}
+  <br />
+  {%include "aponurho/increqs.html"%}
+{%endblock%}

@@ -1,0 +1,228 @@
+{%extends "aponurho/basepage.html"%}
+
+{%block body%}
+<center>
+  <script language="Javascript" src="md5sum.js"></script>
+  <script language="JavaScript">
+    function submitLogin ()
+    {
+      var form = document.create;
+      var pswd1 = form.password1.value;
+      var pswd2 = form.password2.value;
+      form.hashedpswd1.value = MD5(pswd1);
+      form.hashedpswd2.value = MD5(pswd2);
+      return true;
+    }
+  </script>
+  <table width="400">
+	<caption>Create Your Account</caption>
+    <form name="create" align="center" action="docreateaccount" method="post" onsubmit="return submitLogin()">
+    {%csrf_token%}
+    <tr>
+      <td>
+        Username (myWM Login ID):
+      </td>
+      <td>
+        <input type="text" name="username">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Password:
+      </td>
+      <td>
+        <input type="password" name="password1">
+        <input type="hidden" name="hashedpswd1">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Confirm Password:
+      </td>
+      <td>
+        <input type="password" name="password2">
+        <input type="hidden" name="hashedpswd2">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Email Address:
+      </td>
+      <td>
+        <input type="text" name="email1">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Confirm Email Address:
+      </td>
+      <td>
+        <input type="text" name="email2">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        First Name:
+      </td>
+      <td>
+        <input type="text" name="firstname">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Last Name:
+      </td>
+      <td>
+        <input type="text" name="lastname">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Pledge Class:
+      </td>
+      <td>
+        <select name="pledgeclass">
+          {%for class in pledgeclasses%}
+            <option value="{{class.name}}">{{class.name}}</option>
+          {%endfor%}
+        </select>
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Family:
+      </td>
+      <td>
+        <select name="family">
+          <option value="">None</option>
+          {%for family in families%}
+            <option value="{{family.id}}">{{family.name}}</option>
+          {%endfor%}
+        </select>
+      </td>
+    </tr>
+		<tr>
+      <td>
+        CSU #:
+      </td>
+      <td>
+        <input type="text" name="csu">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Major(s):
+      </td>
+      <td>
+        <input type="text" name="major1">
+      </td>
+    </tr>
+		<tr>
+      <td></td>
+      <td>
+        <input type="text" name="major2">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Graduation Year:
+      </td>
+      <td>
+        <input type="text" name="gradyear">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        &nbsp;&nbsp;Semester:
+      </td>
+      <td>
+        <select name="gradsemester">
+          <option value="0">Spring</option>
+          <option value="1">Fall</option>
+        </select>
+      </td>
+    </tr>
+	<tr>
+      <td>
+        Birthday:
+      </td>
+      <td>
+        <select name="month">
+          {%for month in months%}
+            <option value="{{month.0}}">{{month.1}}</option>
+          {%endfor%}
+        </select>
+        <select name="day">
+          {%for day in days%}
+            <option value="{{day}}">{{day}}</option>
+          {%endfor%}
+        </select>
+        <select name="year">
+          {%for year in years%}
+            <option value="{{year}}">{{year}}</option>
+          {%endfor%}
+        </select>
+      </td>
+    </tr>
+	<tr>
+      <td>
+        Cell Phone #:
+      </td>
+      <td>
+        <input type="text" name="cellphone">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Campus Address*:
+      </td>
+      <td>
+        <input type="text" name="campusaddress1">
+      </td>
+    </tr>
+		<tr>
+      <td></td>
+      <td>
+        <input type="text" name="campusaddress2">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Permanent Phone #:
+      </td>
+      <td>
+        <input type="text" name="permphone">
+      </td>
+    </tr>
+		<tr>
+      <td>
+        Permanent Address:
+      </td>
+      <td>
+        <input type="text" name="permaddress1">
+      </td>
+    </tr>
+		<tr>
+      <td></td>
+      <td>
+        <input type="text" name="permaddress2">
+      </td>
+    </tr>
+		<tr>
+      <td colspan="2">
+        <center><input class="button" type="submit" value="Create Account"></center>
+      </td>
+    </tr>
+		<tr>
+      <td colspan="2">
+        <center><a href="login">Back</a></center>
+      </td>
+    </tr>
+		<tr>
+      <td colspan="2">
+        <center>* Dorm and room number or off-campus address.</center>
+      </td>
+    </tr>
+	</table>
+</center>
+{%endblock%}

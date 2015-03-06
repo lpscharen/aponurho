@@ -1,0 +1,71 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Set Standards, Pledge Staff{%endblock%}
+
+{%block maincell%}
+<br />
+<center>
+  <h4>Standards</h4>
+</center>
+<table align="center" border="1">
+  {%for user in standards%}
+    <tr>
+      <td>
+        {{user.name}}
+      </td>
+      <td>
+        <a href="removefromspecfam?userid={{user.id}}&fam=standards">Remove</a>
+      </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+<form action="addtospecfam" method="post">
+  {%csrf_token%}
+  <center>
+    <select name="userid">
+      {%for user in users%}
+        <option value="{{user.id}}">
+          {{user.name}}
+        </option>
+      {%endfor%}
+    </select>
+  </center>
+  <input type="hidden" name="fam" value="standards" />
+  <center>
+    <input class="button" type="submit" name="submitbutton" value="Add" />
+  </center>
+</form>
+<center>
+  <h4>Pledge Staff</h4>
+</center>
+<table align="center" border="1">
+  {%for user in pledgestaff%}
+    <tr>
+      <td>
+        {{user.name}}
+      </td>
+      <td>
+        <a href="removefromspecfam?userid={{user.id}}&fam=pledgeStaff">Remove</a>
+      </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+<form action="addtospecfam" method="post">
+  {%csrf_token%}
+  <center>
+    <select name="userid">
+      {%for user in users%}
+        <option value="{{user.id}}">
+          {{user.name}}
+        </option>
+      {%endfor%}
+    </select>
+  </center>
+  <input type="hidden" name="fam" value="pledgeStaff" />
+  <center>
+    <input class="button" type="submit" name="submitbutton" value="Add" />
+  </center>
+</form>
+{%endblock%}

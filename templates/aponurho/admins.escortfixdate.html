@@ -1,0 +1,32 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Fix Escort Shifts{%endblock%}
+
+{%block maincell%}
+<form action="escortfixfinal" method="post">
+  {%csrf_token%}
+  <input type="hidden" name="userid" value="{{userid}}" />
+  <input type="hidden" name="type" value="push" />
+  <center>Push into shift: 
+    <select name="shiftid">
+      {%for shift in canpush%}
+        <option value="{{shift.id}}">{{shift.date}} {%if shift.shift%}B{%else%}A{%endif%}</option>
+      {%endfor%}
+    </select>
+    <input class="button" type="submit" name="submitbutton" value="Push" />
+  </center>
+</form>
+<form action="escortfixfinal" method="post">
+  {%csrf_token%}
+  <input type="hidden" name="userid" value="{{userid}}" />
+  <input type="hidden" name="type" value="pull" />
+  <center>Pull out of shift: 
+    <select name="shiftid">
+      {%for shift in canpull%}
+        <option value="{{shift.id}}">{{shift.date}} {%if shift.shift%}B{%else%}A{%endif%}</option>
+      {%endfor%}
+    </select>
+    <input class="button" type="submit" name="submitbutton" value="Pull" />
+  </center>
+</form>
+{%endblock%}

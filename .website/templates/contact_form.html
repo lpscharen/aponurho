@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{%block mainbox %}
+
+{% if form.has_errors %}
+    <h2>Please correct the following error{{ errors|pluralize }}:</h2>
+  {% endif %}
+
+<form method="POST" action="contact_us">
+<table>
+{% for i in form.fields %}
+<p><tr>
+	<td><label for="id_{{i.field_name}}">{{i.field_name|title|removetags:"'_'"}}:</label></td>
+	<td>{{i}}
+	{% if i.errors %}
+	*** {{ i.errors|join:", " }}
+	{% endif %}
+	</td>
+</p></tr>	
+{% endfor %}</table>
+<input type="submit" value="submit" />
+<input type="reset" value="Reset" />
+</form>
+
+
+
+{% endblock %}

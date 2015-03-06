@@ -1,0 +1,47 @@
+{%extends "aponurho/basepage.html"%}
+
+{%block body%}
+{%block scripts%}{%endblock%}
+<center><h1>{%block header%}{%endblock%}</h1></center>
+<table width="100%" border="1">
+  <tr>
+    <td width="200" valign="top">
+      <br />
+      <center><a href="/main">Home</a></center>
+      <br />
+      <center><a href="/reqs">Requirements</a></center>
+      <br />
+      <center><a href="/service">Service</a></center>
+      <br />
+      <center><a href="/service/escort">Escort</a></center>
+      <br />
+      <center><a href="/editprofile">Edit Profile</a></center>
+      {%if isadmin%}
+        <br />
+        <center><a href="/admins">Administrative Stuff</a></center>
+      {%endif%}
+      <br />
+      <center><a href="/submitbrother">Submit Brother Of The Week</a></center>
+      <br />
+      <center><a href="/submithazing">Submit Hazing Claims</a></center>
+      <br />
+      <center><a href="/contact">Send Comment</a></center>
+      <br />
+      <center><a href="http://wmpeople.wm.edu/site/page/alphaphiomega">Nu Rho's Website</a></center>
+      <br />
+      <center><a href="/logout">Log Out</a></center>
+      <br />
+    </td>
+    <td>
+      {%block maincell%}{%endblock%}
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <center>
+      Contact Logan Scharen (<a href="mailto:lpscharen@email.wm.edu">lpscharen@email.wm.edu</a>), Cara Minnix (<a href="mailto:nurhosecretary@gmail.com">nurhosecretary@gmail.com</a>), or Michelle Brown (<a href="mailto:mjbrown02@email.wm.edu">mjbrown02@email.wm.edu</a>) with comments, suggestions, or problems.
+      </center>
+    </td>
+  </tr>
+</table>
+{%endblock%}

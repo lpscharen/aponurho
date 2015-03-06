@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block topnav %}
+<ul>
+	<li><a href="/">Home</a></li>
+          {% for p in object_list.0.page_set.all %}
+        <li><a href="/pages/{{p}}">{{p|capfirst}}</a>  </li>
+    {%endfor%}
+    <li><a href="/contact_us">Contact</a></li>
+</ul>
+{% endblock %}
+
+
+{%block mainbox %}
+{% for p in object_list.2.page_set.all %}
+<p class="page_title">{{ p.name|capfirst}}</p>
+
+<p>{{ p.description }}</p>
+{%endfor%}
+
+{% endblock %}
+
+
+
+{%block rightbox %}
+	{% for p in object_list.3.page_set.all %}
+<p><span class="news_title">{{p.name|capfirst}}</span><br /></p>
+<p>{{ p.description }}</p>  {%endfor%}  
+
+{% endblock %}
+
+
+{% block footer %}
+
+          {% for p in object_list.1.page_set.all %}
+        <a href="/pages/{{p}}">{{p|capfirst}}</a> |
+    {%endfor%}
+    
+    <a href="/">Home</a> | <a href="/contact_us">Contact</a>
+    
+{% endblock %}

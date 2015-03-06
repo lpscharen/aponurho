@@ -1,0 +1,48 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Brother Of The Week Nominations{%endblock%}
+
+{%block maincell%}
+  {%if brothers%}
+    <table border = 1 align=center> 
+      <tr>
+        <td>
+          Name:
+        </td>
+        <td>
+          Reason:
+        </td>
+        <td>
+          Date Submitted:
+        </td>
+        <td>
+          
+        </td>
+      </tr>
+      {%for brother in brothers%}
+        <tr>
+        <td>
+          {{brother.name}}
+        </td>
+        <td>
+          {{brother.description}}
+        </td>
+        <td>
+          {{brother.date|date:"l, N j"}}
+        </td>
+        <td>
+         <a href=removebrotheroftheweek?id={{brother.id}}>
+          Remove
+         </a>
+        </td>
+      </tr>
+      {%endfor%}
+    </table> 
+   
+  {%else%}
+    <center>
+    No current nominations.
+    </center>
+  {%endif%}
+   
+{%endblock%}

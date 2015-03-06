@@ -1,0 +1,26 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Approve Committee Credit{%endblock%}
+
+{%block maincell%}
+  {%if requests%}
+    <table align=center border=1>
+      <tr>
+        <td>Requester</td>
+        <td>Committee Name</td>
+        <td>Approve</td>
+        <td>Deny</td>
+      </tr>
+      {%for request in requests%}
+        <tr>
+          <td>{{request.user}}</td>
+          <td>{{request.name}}</td> 
+          <td><a href="approvecommittee?userid={{request.user.id}}">Approve</a></td>
+          <td><a href="denycommittee?userid={{request.user.id}}">Deny</a></td>
+        </tr>
+      {%endfor%}
+    </table>
+  {%else%}
+    <center>No Requests to Approve</center>
+  {%endif%}
+{%endblock%}

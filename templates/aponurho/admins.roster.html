@@ -1,0 +1,184 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Roster{%endblock%}
+
+{%block bodytags%}onLoad="refreshRoster();"{%endblock%}
+
+{%block scripts%}
+<script language="javascript">
+function contains(arr, elem)
+{
+  for(a = 0;a < arr.length;a++)
+  {
+    if(arr[a] == elem)
+      return true;
+  }
+  return false;
+}
+function moveLeft(colName)
+{
+  order = document.getElementById("order").innerHTML.split(",");
+  visibleList = getPresent().split(",");
+  i = 0;
+  for(i = 0;i < order.length;i++)
+  {
+    if(order[i] == colName)
+    {
+      break;
+    }
+  }
+  while(i > 0)
+  {
+    tmp = order[i];
+    order[i] = order[i - 1];
+    order[i - 1] = tmp;
+    if(contains(visibleList, order[i]))
+      break;
+    i--;
+  }
+  document.getElementById("order").innerHTML = order.join(",");
+}
+
+function moveRight(colName)
+{
+  order = document.getElementById("order").innerHTML.split(",");
+  visibleList = getPresent().split(",");
+  for(i = 0;i < order.length;i++)
+  {
+    if(order[i] == colName)
+    {
+      if(i != order.length - 1)
+      {
+        tmp = order[i];
+        order[i] = order[i + 1];
+        order[i + 1] = tmp;
+      }
+      break;
+    }
+  }
+  document.getElementById("order").innerHTML = order.join(",");
+}
+
+function orderBy(colName)
+{
+  if(colName == document.getElementById("orderBy").innerHTML)
+  {
+    if(document.getElementById("reverse").innerHTML == "")
+      document.getElementById("reverse").innerHTML = "1";
+    else
+      document.getElementById("reverse").innerHTML = "";
+  }
+  else
+  {
+    document.getElementById("reverse").innerHTML = "";
+  }
+  document.getElementById("orderBy").innerHTML = colName;
+}
+
+function getPresent()
+{
+  present = "";
+  userdata = [{%for d in userdata%}"{{d.1}}",{%endfor%}];
+  semesterdata = [{%for d in semesterdata%}"{{d.1}}",{%endfor%}];
+  for(i=0; i < userdata.length; i++)
+  {
+    if(document.mainForm.elements[userdata[i]].value)
+    {
+      present += userdata[i] + ",";
+    }
+  }
+  for(i=0; i < semesterdata.length; i++)
+  {
+    if(document.mainForm.elements[semesterdata[i]].value)
+    {
+      present += semesterdata[i] + ",";
+    }
+  }
+  return present + ",lastName,firstName";
+}
+
+function refreshRoster()
+{
+  if(window.XMLHttpRequest)
+  {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {
+    // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("mainTable").innerHTML=xmlhttp.responseText;
+    }
+  }
+
+  present = getPresent();
+  orderByNow = document.getElementById("orderBy").innerHTML;
+  contained = false;
+  visibleList = present.split(",").concat(["lastName", "firstName"]);
+  for(i = 0;i < visibleList.length;i++)
+  {
+    if(orderByNow == visibleList[i])
+    {
+      contained = true;
+    }
+  }
+  if(!contained)
+  {
+    orderBy("lastName");
+  }
+  url = "rostercontents/" + document.mainForm.elements["semester"].value + "?present=" + present;
+  url += "&order=" + document.getElementById("order").innerHTML;
+  url += "&orderby=" + document.getElementById("orderBy").innerHTML;
+  url += "&reverse=" + document.getElementById("reverse").innerHTML;
+  //document.getElementById("codeDiv").innerHTML = "<a href=\"/admins/" + url + "\">Link</a>";
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+</script>
+{%endblock%}
+
+{%block maincell%}
+  <div id="data" style="display:none">
+    <div id="order">{{order|join:","}}</div>
+    <div id="orderBy">{{orderby}}</div>
+    <div id="reverse"></div>
+  </div>
+  <form name="mainForm">
+    <table align=center> 
+      <tr>
+        <td>
+          {%for data in userdata%}
+            <input type="checkbox" name="{{data.1}}" onclick="refreshRoster();" />{{data.0}}
+            <br />
+          {%endfor%}
+        </td>
+        <td>
+          <select name="semester" onchange="refreshRoster();">
+            <option value="roster">Roster</option>
+            <option value="ghost">Ghost</option>
+            {%for semester in semesters%}
+              <option value="{{semester.id}}">{{semester.name}}</option>
+            {%endfor%}
+          </select>
+        </td>
+        <td>
+          {%for data in semesterdata%}
+            <input type="checkbox" name="{{data.1}}" onclick="refreshRoster();" />{{data.0}}
+            <br />
+          {%endfor%}
+        </td>
+      </tr> 
+    </table>
+  </form>
+  <div id="mainTable" align="center">
+  </div>
+  <div id="codeDiv">
+  </div>
+{%endblock%}

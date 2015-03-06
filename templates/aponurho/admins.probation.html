@@ -1,0 +1,177 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Probation - {{thisuser.name}}{%endblock%}
+
+{%block maincell%}
+{%if message%}
+  <br />
+  <center>{{message}}</center>
+{%endif%}
+<br />
+<table width=400 align=center cellspacing=10>
+  {%if semreqs%}
+    <tr>
+      <td>
+        {%if semreqs.dues > 0%}
+          <img src="http://www.aponurho.org/chk_on.gif" />
+        {%else%}
+          <img src="http://www.aponurho.org/chk_off.gif" />
+        {%endif%}
+        &nbsp;&nbsp; Dues: {%if semreqs.dues > 0%}Done{%else%}Not Paid{%endif%}
+      </td>
+    </tr>
+    {%if semreqs.active == 1%}
+      <tr>
+        <td>
+          {%if semreqs.service >= semreqs.semester.serviceRequirement%}
+            <img src="http://www.aponurho.org/chk_on.gif" />
+          {%else%}
+            <img src="http://www.aponurho.org/chk_off.gif" />
+          {%endif%}
+          &nbsp;&nbsp; Countable Hours of Service: {{semreqs.service}}/{{semreqs.semester.serviceRequirement}}
+        </td>
+      </tr>
+	  <tr>
+        <td>
+          {%if semreqs.escortHours >= semreqs.semester.escortMinHoursRequirement%}
+            <img src="http://www.aponurho.org/chk_on.gif" />
+          {%else%}
+            <img src="http://www.aponurho.org/chk_off.gif" />
+          {%endif%}
+          &nbsp;&nbsp; Hours of Escort: {{semreqs.escortHours}}/{{semreqs.semester.escortMinHoursRequirement}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.committee%}
+            <img src="http://www.aponurho.org/chk_on.gif" />
+          {%else%}
+            <img src="http://www.aponurho.org/chk_off.gif" />
+          {%endif%}
+          &nbsp;&nbsp; Committee Credit: {%if semreqs.committee%}Done{%else%}Not Done{%endif%}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.meetings.all|length >= semreqs.semester.meetingRequirement%}
+            <img src="http://www.aponurho.org/chk_on.gif" />
+          {%else%}
+            <img src="http://www.aponurho.org/chk_off.gif" />
+          {%endif%}
+          &nbsp;&nbsp; Meetings Attended: {{semreqs.meetings.all|length}}/{{semreqs.semester.meetingRequirement}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.escortShifts.all|length >= semreqs.semester.escortRequirement%}
+            <img src="http://www.aponurho.org/chk_on.gif" />
+          {%else%}
+            <img src="http://www.aponurho.org/chk_off.gif" />
+          {%endif%}
+          &nbsp;&nbsp; Weekend Escort Shifts: {{semreqs.escortShifts.all|length}}/{{semreqs.semester.escortRequirement}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {%if semreqs.philanthropy%}
+            <img src="http://www.aponurho.org/chk_on.gif" />
+          {%else%}
+            <img src="http://www.aponurho.org/chk_off.gif" />
+          {%endif%}
+          &nbsp;&nbsp; Philanthropy: {%if semreqs.philanthropy%}Done{%else%}Not Done{%endif%}
+        </td>
+      </tr>
+    {%endif%}
+  {%else%}
+    <tr> 
+      <td> 
+        <img src="http://www.aponurho.org/chk_off.gif" /> 
+        &nbsp;&nbsp; Dues: Not Paid
+      </td> 
+    </tr> 
+      <tr> 
+        <td> 
+          <img src="http://www.aponurho.org/chk_off.gif" /> 
+          &nbsp;&nbsp; Countable Hours of Service: 0/25
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          <img src="http://www.aponurho.org/chk_off.gif" /> 
+          &nbsp;&nbsp; Hours of Escort: 0/12
+        </td> 
+      </tr>
+      <tr> 
+        <td> 
+          <img src="http://www.aponurho.org/chk_off.gif" /> 
+          &nbsp;&nbsp; Committee Credit: Not Done
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          <img src="http://www.aponurho.org/chk_off.gif" /> 
+          &nbsp;&nbsp; Meetings Attended: 0/6
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          <img src="http://www.aponurho.org/chk_off.gif" /> 
+          &nbsp;&nbsp; Weekend Escort Shifts: 0/2
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          <img src="http://www.aponurho.org/chk_off.gif" /> 
+          &nbsp;&nbsp; Philanthropy: Not Done
+        </td> 
+      </tr> 
+  {%endif%}
+</table><br /><br />
+<form action="doprobation" type="POST">
+  <center>
+    <h3>
+      Probation Requirements
+    </h3>
+  </center>
+  {%if id > -1%}
+    <center>
+      Already set. <a href="deleteprobation?id={{id}}&sem1={{sem1}}&sem2={{sem2}}">Delete?</a>
+    </center>
+  {%endif%}
+  <input type="hidden" name="sem1" value="{{sem1}}" />
+  <input type="hidden" name="sem2" value="{{sem2}}" />
+  <input type="hidden" name="userid" value="{{userid}}" />
+  <center>
+    Philanthropy:
+    <input type="text" name="philanthropy" value="{{reqs.philanthropy}}" />
+  </center>
+  <center>
+    Committee:
+    <input type="text" name="committee" value="{{reqs.committee}}" />
+  </center>
+  <center>
+    Dues:
+    <input type="text" name="dues" value="{{reqs.dues}}" />
+  </center>
+  <center>
+    Service:
+    <input type="text" name="service" value="{{reqs.service}}" />
+  </center>
+  <center>
+    Escort Hours:
+    <input type="text" name="escortHours" value="{{reqs.escortHours}}" />
+  </center>
+  <center>
+    Escort:
+    <input type="text" name="escort" value="{{reqs.escort}}" />
+  </center>
+  <center>
+    Meetings:
+    <input type="text" name="meetings" value="{{reqs.meetings}}" />
+  </center>
+  <center>
+    <input class="button" type="submit" name="submitbutton" value="Set Probation" />
+  </center>
+</form>
+<br />
+{%endblock%}

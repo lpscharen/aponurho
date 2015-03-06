@@ -1,0 +1,52 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Record Committee Credit{%endblock%}
+
+{%block maincell%}
+  {%if probationreqs and probationreqs.committee%}
+    <center>You worked on {{probationreqs.committeeName}} with {{probationreqs.committeeHead.name}}.</center>
+    <br />
+  {%endif%}
+  {%if semreqs.committee%}
+    <center>You worked on {{semreqs.committeeName}} with {{semreqs.committeeHead.name}}.</center>
+    <br />
+  {%endif%}
+  {%if probationreqs and not probationreqs.committee and probationreqs.committeeReq or not semreqs.committee%}
+    {%if dencomm%}
+      <center>
+        Your work on {{dencomm.name}} with {{dencomm.committeeHead.name}} was denied.
+      </center>
+      <center>
+        <a href="okdeniedcommittee">OK</a>
+      </center>
+    {%else%}
+      {%if pendcomm%}
+      <center>
+        Waiting from {{pendcomm.committeeHead.name}} to confirm credit for {{pendcomm.name}}.
+      </center>
+      {%else%}
+        <form action="docommittee" method=post>
+          {%csrf_token%}
+          <center>
+            Committee Name: 
+            <input type="text" name="committeename" />
+          </center>
+          <br /> 
+          <center>
+            Committee Head: 
+            <select name="committeehead">
+              {%for head in heads%}
+                <option value="{{head.id}}">{{head.firstName}} {{head.lastName}}</option>
+              {%endfor%}
+            </select>
+          </center>
+          <br /> 
+          <center>
+            <input class="button" type="submit" name="submitbutton" value="Submit" />
+          </center>
+          <br />
+        </form>
+      {%endif%}
+    {%endif%}
+  {%endif%}
+{%endblock%}

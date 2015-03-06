@@ -1,0 +1,58 @@
+<center><h4>Head(s)</h4></center>
+<form action="setfamilyhead" method="post">
+  {%csrf_token%}
+  <center>
+  {%if family.head1%}
+    {{family.head1.name}}
+  {%else%}
+    None
+  {%endif%}
+    <input type="hidden" name="head" value="1" />
+    <input type="hidden" name="familyid" value="{{family.id}}" />
+    <select name="userid">
+      {%for user in users%}
+        <option value="{{user.id}}">{{user.name}}</option>
+      {%endfor%}
+    </select>
+    <input class="button" type="submit" name="submitbutton" value="Change Head" />
+  </center>
+</form>
+<form action="setfamilyhead" method="post">
+  {%csrf_token%}
+  <center>
+    {%if family.head2%}
+      {{family.head2.name}}
+    {%else%}
+      None
+    {%endif%}
+    <input type="hidden" name="head" value="2" />
+    <input type="hidden" name="familyid" value="{{family.id}}" />
+    <select name="userid">
+      {%for user in users%}
+        <option value="{{user.id}}">{{user.name}}</option>
+      {%endfor%}
+    </select>
+    <input class="button" type="submit" name="submitbutton" value="Change Head" />
+  </center>
+</form>
+<br />
+
+<table border=1>
+  <tr>
+    <td>#</td>
+    {%for header in headers%}
+      <td>{{header.1}}</td>
+    {%endfor%}
+  </tr>
+  {%for user in data%}
+    <tr>
+      {%for cell in user%}
+        {%if cell.link%}
+          <td><a href="{{cell.link}}">{{cell.contents}}</a></td>
+        {%else%}
+          <td>{{cell}}</td>
+        {%endif%}
+      {%endfor%}
+    </tr>
+  {%endfor%}
+</table>

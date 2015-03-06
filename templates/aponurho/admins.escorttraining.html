@@ -1,0 +1,24 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Escort Training{%endblock%}
+
+{%block maincell%}
+  {%if untrained%}
+    <table align=center border=1>
+      <tr>
+        <td>Last Name</td>
+        <td>First Name</td>
+        <td>Escort Trained?</td>
+      </tr>
+      {%for user in untrained%}
+        <tr>
+          <td>{{user.lastName}}</td>
+          <td>{{user.firstName}}</td>
+          <td><a href="addtraining?userid={{user.id}}">Trained</a></td>
+        </tr>
+      {%endfor%}
+    </table>
+  {%else%}
+    <center>Everyone has been trained!</center>
+  {%endif%}
+{%endblock%}

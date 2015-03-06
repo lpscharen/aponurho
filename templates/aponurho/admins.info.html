@@ -1,0 +1,133 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}{{thisuser.name}}'s Info{%endblock%}
+
+{%block maincell%}
+  <br /> 
+  <table align=center> 
+      <tr>
+        <td>
+          Username:
+        </td>
+        <td>
+          {{thisuser.username}}
+        </td>
+      </tr>
+      <tr> 
+        <td> 
+          Email:
+        </td> 
+        <td> 
+          {{thisuser.email}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Family:
+        </td> 
+        <td> 
+          {{thisuser.family.name}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          CSU:
+        </td> 
+        <td> 
+          {{thisuser.csu}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Major(s):
+        </td> 
+        <td> 
+          {{thisuser.major1}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td></td> 
+        <td> 
+          {{thisuser.major2}}&nbsp;
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Graduation Year:
+        </td> 
+        <td> 
+          {{thisuser.gradYear}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          &nbsp;&nbsp;Semester:
+        </td> 
+        <td> 
+            {%if thisuser.gradSemester == 0%}Spring{%else%}Fall{%endif%}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Birthday: 
+        </td> 
+        <td> 
+          {{thisuser.birthday}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Cell Phone #:
+        </td> 
+        <td> 
+          {{thisuser.cellPhone}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Campus Address:
+        </td> 
+        <td> 
+          {{thisuser.campusAddress1}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td></td> 
+        <td> 
+          {{thisuser.campusAddress2}}&nbsp;
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Permanent Phone #:
+        </td> 
+        <td> 
+          {{thisuser.permanentPhone}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td> 
+          Permanent Address:
+        </td> 
+        <td> 
+          {{thisuser.permanentAddress1}}
+        </td> 
+      </tr> 
+      <tr> 
+        <td></td> 
+        <td> 
+          {{thisuser.permanentAddress2}}&nbsp;
+        </td> 
+      </tr> 
+      <tr><td colspan="2">&nbsp;</td></tr> 
+      <tr> 
+        <td colspan="2"><center>Semesters</center></td> 
+      </tr> 
+      {%for semreqs in semreqss%}
+        <tr> 
+          <td colspan="2"><center><a href="card?id={{semreqs.id}}">{{semreqs.semester.name}}</a></center></td> 
+        </tr> 
+      {%endfor%}
+  </table> 
+  <br /> 
+{%endblock%}

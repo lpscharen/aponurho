@@ -1,0 +1,208 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Edit Profile{%endblock%}
+
+{%block maincell%}
+  <script language=Javascript src="md5sum.js"></script><SCRIPT LANGUAGE="JavaScript"> 
+    function submitPasswordChange()
+    {
+      var form = document.changepassword;
+      var pswd = form.oldpassword.value;
+      form.oldpassword.value = MD5(pswd);
+      var pswd1 = form.newpassword.value;
+      form.newpassword.value = MD5(pswd1);
+      var pswd2 = form.repeatpassword.value;
+      form.repeatpassword.value = MD5(pswd2);
+      form.submitbutton.disabled = true;
+      form.submitbutton.value = "Changing Password...";
+      return true;
+    }
+  </SCRIPT>
+
+  <br />
+  {%if message%}
+    <center>{{message}}</center>
+    <br />
+  {%endif%}
+  <table align=center>
+    <form action="doeditprofile" method=post>
+      {%csrf_token%}
+      <tr>
+        <td>
+          Email:
+        </td>
+        <td>
+          <input type="text" name="email" value="{{userobj.email}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Family:
+        </td>
+        <td>
+          <select name="family">
+            <option value="">None</option>
+            {%for family in families%}
+              <option value="{{family.id}}"{%if userobj.family == family%}selected{%endif%}>{{family.name}}</option>
+            {%endfor%}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          CSU:
+        </td>
+        <td>
+          <input type="text" name="csu" value="{{userobj.csu}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Major(s):
+        </td>
+        <td>
+          <input type="text" name="major1" value="{{userobj.major1}}" />
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="text" name="major2" value="{{userobj.major2}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Graduation Year:
+        </td>
+        <td>
+          <input type="text" name="gradyear" value="{{userobj.gradYear}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          &nbsp;&nbsp;Semester:
+        </td>
+        <td>
+          <select name="gradsemester">
+            <option value="0"{%if userobj.gradSemester == 0%} selected{%endif%}>Spring</option>
+            <option value="1"{%if userobj.gradSemester == 1%} selected{%endif%}>Fall</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Birthday: 
+        </td>
+        <td>
+          <select name="month">
+            {%for month in months%}
+              <option value="{{month.0}}"{%if userobj.birthday.month == month.0%} selected{%endif%}>{{month.1}}</option>
+            {%endfor%}
+          </select>
+          <select name="day">
+            {%for day in days%}
+              <option value="{{day}}"{%if userobj.birthday.day == day%} selected{%endif%}>{{day}}</option>
+            {%endfor%}
+          </select>
+          <select name="year">
+            {%for year in years%}
+              <option value="{{year}}"{%if userobj.birthday.year == year%} selected{%endif%}>{{year}}</option>
+            {%endfor%}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Cell Phone #:
+        </td>
+        <td>
+          <input type="text" name="cellphone" value="{{userobj.cellPhone}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Campus Address:
+        </td>
+        <td>
+          <input type="text" name="campusaddress1" value="{{userobj.campusAddress1}}" />
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="text" name="campusaddress2" value="{{userobj.campusAddress2}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Permanent Phone #:
+        </td>
+        <td>
+          <input type="text" name="permphone" value="{{userobj.permanentPhone}}" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Permanent Address:
+        </td>
+        <td>
+          <input type="text" name="permaddress1" value="{{userobj.permanentAddress1}}" />
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <input type="text" name="permaddress2" value="{{userobj.permanentAddress2}}" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+          <center>
+            <input class="button" type="submit" name="submitbutton" value="Save" />
+          </center>
+        </td>
+      </tr>
+    </form>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <form name="changepassword" action="changepassword" method=post onSubmit="return submitPasswordChange()">
+      {%csrf_token%}
+      <tr>
+        <td colspan=2>
+          <center>Change Password</center>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Old Password:
+        </td>
+        <td>
+          <input type="password" name="oldpassword" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          New Password:
+        </td>
+        <td>
+          <input type="password" name="newpassword" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Repeat Password:
+        </td>
+        <td>
+          <input type="password" name="repeatpassword" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+          <center>
+            <input class="button" type="submit" name="submitbutton" value="Change Password" />
+          </center>
+        </td>
+      </tr>
+    </form>
+  </table>
+  <br />
+{%endblock%}

@@ -1,0 +1,84 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Hazing Claims{%endblock%}
+
+{%block maincell%}
+  {%if hazing%}
+    <table border = 1 align=center> 
+      <tr>
+        <td>
+          Date:
+        </td>
+        <td>
+          Location:
+        </td>
+	<td>
+	  Family:
+	</td>
+	<td>
+	  Description:
+        </td>
+	<td>
+	  Awareness:
+	</td>
+	<td>
+	  Names:
+	</td>
+	<td>
+	  Additional:
+	</td>
+	<td>
+	  Contact:
+	</td>
+	<td>
+          Date Submitted:
+        </td>
+        <td>
+          
+        </td>
+      </tr>
+      {%for hazing in hazings%}
+        <tr>
+        <td>
+          {{hazing.dateof}}
+        </td>
+        <td>
+          {{hazing.location}}
+        </td>
+	<td>
+	  {{hazing.family}}
+	</td>
+	<td>
+	  {{hazing.desciption}}
+	</td>
+	<td>
+	  {{hazing.awareness}}
+	</td>
+	<td>
+	  {{hazing.names}}
+	</td>
+	<td>
+	  {{hazing.additional}}
+	</td>
+	<td>
+	  {{hazing.contact}}
+	</td>
+        <td>
+          {{hazing.date|date:"l, N j"}}
+        </td>
+        <td>
+         <a href=removehazing?id={{hazing.id}}>
+          Remove
+         </a>
+        </td>
+      </tr>
+      {%endfor%}
+    </table> 
+   
+  {%else%}
+    <center>
+    No current claims.
+    </center>
+  {%endif%}
+   
+{%endblock%}

@@ -1,0 +1,74 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Probation Users{%endblock%}
+
+{%block maincell%}
+{%if message%}
+  <br />
+  <center>{{message}}</center>
+{%endif%}
+<br />
+<table align="center" border="1">
+  <tr>
+    <td>
+      Ghosts
+    </td>
+    <td>
+      Email
+    </td>
+  </tr>
+  {%for user in ghosts%}
+    <tr>
+      <td>
+        <a href="probation?sem1={{sem1}}&sem2={{sem2}}&userid={{user.id}}">{{user.name}}</a>
+     </td>
+     <td>
+       {{user.email}}
+     </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+<table align="center" border="1">
+  <tr>
+    <td>
+      Probation
+    </td>
+    <td>
+      Email
+    </td>
+  </tr>
+  {%for user in probusers%}
+    <tr>
+      <td>
+        <a href="probation?sem1={{sem1}}&sem2={{sem2}}&userid={{user.id}}">{{user.name}}</a>
+      </td>
+      <td>
+        {{user.email}}
+      </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+<table align="center" border="1">
+  <tr>
+    <td>
+      On Probation
+    </td>
+    <td>
+      Email
+    </td>
+  </tr>
+  {%for user in onprobusers%}
+    <tr>
+      <td>
+        <a href="probation?sem1={{sem1}}&sem2={{sem2}}&userid={{user.id}}">{{user.name}}</a>
+      </td>
+      <td>
+        {{user.email}}
+      </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+{%endblock%}

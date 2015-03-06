@@ -1,0 +1,88 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Set Weekday Escort Schedule{%endblock%}
+
+{%block maincell%}
+<br />
+<center>
+  <a href="specfams">Change Pledge Staff, Standards</a>
+</center>
+<br />
+<form action="setweekdayescort" method="post">
+  {%csrf_token%}
+  <table align="center" border="1">
+    <tr>
+      <td>
+        Select Sunday of first week:
+      </td>
+      <td colspan="2">
+        <select name="month1">
+          {%for month in months%}
+            <option value="{{month.0}}"{%if month.0 == date1.month%} selected{%endif%}>
+              {{month.1}}
+            </option>
+          {%endfor%}
+        </select>
+        <select name="day1">
+          {%for day in days%}
+            <option value="{{day}}"{%if day == date1.day%} selected{%endif%}>{{day}}</option>
+          {%endfor%}
+        </select>
+        <input type="hidden" name="year1" value="{{date1.year}}" />
+        {{date1.year}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Select last day of escort:
+      </td>
+      <td colspan="2">
+        <select name="month2">
+          {%for month in months%}
+            <option value="{{month.0}}"{%if month.0 == date2.month%} selected{%endif%}>
+              {{month.1}}
+            </option>
+          {%endfor%}
+        </select>
+        <select name="day2">
+          {%for day in days%}
+            <option value="{{day}}"{%if day == date2.day%} selected{%endif%}>{{day}}</option>
+          {%endfor%}
+        </select>
+        <input type="hidden" name="year2" value="{{date2.year}}" />
+        {{date2.year}}
+      </td>
+    </tr>
+    {%for day, current in escortdays%}
+      <tr>
+        <td>
+          {{day.2}}
+        </td>
+        <td>
+          <select name="family-{{day.0}}-{{day.1}}-1">
+            <option value="-1">None</option>
+            {%for family in families%}
+              <option value="{{family.id}}"{%if family == current.0%} selected{%endif%}>{{family.name}}</option>
+            {%endfor%}
+          </select>
+        </td>
+        <td>
+          <select name="family-{{day.0}}-{{day.1}}-2">
+            <option value="-1">None</option>
+            {%for family in families%}
+              <option value="{{family.id}}"{%if family == current.1%} selected{%endif%}>{{family.name}}</option>
+            {%endfor%}
+          </select>
+        </td>
+      </tr>
+    {%endfor%}
+    <tr>
+      <td colspan="3">
+        <center>
+          <input class="button" type="submit" name="submitbutton" value="Set" />
+        </center>
+      </td>
+    </tr>
+  </table>
+</form>
+{%endblock%}

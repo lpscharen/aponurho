@@ -1,0 +1,108 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Administrative Stuff{%endblock%}
+
+{%block maincell%} 
+ {%if execmember.committee%}
+ </center>
+  <br />
+  <center>
+    <a href="admins/committee">Approve Committee Credit</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.philanthropy%}
+  <center>
+    <a href="admins/approvephilanthropy">Approve Philanthropy</a>
+  </center>
+  <br />
+  <center>
+    <a href="admins/addphilanthropy">Add Philanthropy</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.dues%}
+  <center>
+    <a href="admins/dues">Set Dues</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.meetings%}
+  <center>
+    <a href="admins/meetings">Add Meeting Dates</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.escort%}
+  <center>
+    <a href="admins/escort">Add Escort Dates</a>
+  </center>
+  <br />
+  <center>
+    <a href="admins/escorttraining">Escort Training</a>
+  </center>
+  <br />
+  <center>
+    <a href="admins/escortfix">Fix Escort Shifts</a>
+  </center>
+  <br />
+  <center>
+    <a href="admins/weekdayescort">Set Weekday Escort Schedule</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.brotheroftheweek%}
+    <center>
+      <a href="admins/brotheroftheweek">Brother Of The Week Nominations</a>
+    </center>
+    <br />
+  {%endif%}
+  {%if execmember.changeexec%}
+  <center>
+    <a href="admins/execboard">Exec Board</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.semester%}
+  <center>
+    <a href="admins/semester">Change Semester</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.pledgeclass%}
+  <center>
+    <a href="admins/pledgeclass">Add Pledge Class</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.probation%}
+  <center>
+    <a href="admins/probationsemesters">Set Probation</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.service%}
+  <center>
+    <a href="admins/service">Service Opportunities</a>
+  </center>
+  <br />
+  {%endif%}
+  {%if execmember.hazing%}
+  <center>
+    <a href="admins/hazingclaim">Hazing Claims</a>
+  </center>
+  <br />
+  {%endif%}
+  <center>
+    <a href="admins/roster">Roster</a>
+  </center>
+  <br />
+  <center>
+    <a href="admins/familyroster">Family Rosters</a>
+  </center>
+  <br />
+  <center>
+    <a href="admins/semesterstats">Semester Statistics</a>
+  </center>
+  <br />
+{%endblock%}

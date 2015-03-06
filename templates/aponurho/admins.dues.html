@@ -1,0 +1,44 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Set Dues{%endblock%}
+
+{%block maincell%}
+  <form action="setdues" method=post>
+    {%csrf_token%}
+    <table align="center" border=1>
+      <tr>
+        <td>Last Name</td>
+        <td>First Name</td>
+        <td>Paid?</td>
+        <td>N/A</td>
+        <td>Probation</td>
+      </tr>
+      {%for semreq in semreqs%}
+        <tr>
+          <td>{{semreq.user.lastName}}</td>
+          <td>{{semreq.user.firstName}}</td>
+          <td>
+            <input type="checkbox" name="{{semreq.id}}" {%if semreq.dues == 1%}checked{%endif%}>
+          </td>
+          <td>
+            <input type="checkbox" name="{{semreq.id}}-N" {%if semreq.dues == 2%}checked{%endif%}>
+          </td>
+          <td>
+            {%if semreq.probation and semreq.probation.duesReq%}
+              <input type="checkbox" name="{{semreq.id}}-P" {%if semreq.probation.dues == 1%}checked{%endif%}>
+            {%else%}
+              -
+            {%endif%}
+          </td>
+        </tr>
+      {%endfor%}
+      <tr>
+        <td colspan=5>
+          <center>
+            <input class="button" type="submit" name="submitbutton" value="Save Changes" />
+          </center>
+        </td>
+      </tr>
+    </table>
+  </form>
+{%endblock%}

@@ -1,0 +1,53 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Record Philanthropy{%endblock%}
+
+{%block maincell%}
+  {%if probationreqs and probationreqs.philanthropy%}
+    <center>
+      You worked on {{probationreqs.philanthropy.name}}.
+    </center>
+    <br />
+  {%endif%}
+  {%if semesterreqs.philanthropy%}
+    <center>
+      You worked on {{semesterreqs.philanthropy.name}}.
+    </center>
+    <br />
+  {%endif%}
+  {%if not semesterreqs.philanthropy or probationreqs and not probationreqs.philanthropy and probationreqs.philanthropyReq%}
+    {%if deniedphil%}
+      <center>
+        Your work on {{deniedphil.philanthropy.name}} was denied.
+      </center>
+      <center>
+        <a href="okdeniedphilanthropy">OK</a>
+      </center>
+    {%else%}
+      {%if pendingphil%}
+        <center>
+          Your work on {{pendingphil.philanthropy.name}} is waiting to be approved.<br />
+        </center>
+        <center>
+          <a href="cancelpendingphilanthropy">Cancel</a>
+        </center>
+      {%else%}
+        <form action="dophilanthropy" method=post>
+          {%csrf_token%}
+          <center>
+            <select name="id">
+              {%for phil in philanthropies%}
+               <option value="{{phil.id}}">{{phil.name}}: {{phil.date}}</option>
+              {%endfor%}
+            </select>
+          </center>
+          <br /> 
+          <center>
+            <input class="button" type="submit" value="Record Philanthropy" />
+          </center>
+          <br />
+        </form>
+      {%endif%}
+    {%endif%}
+  {%endif%}
+{%endblock%}

@@ -1,0 +1,19 @@
+<table border=1>
+  <tr>
+    <td>#</td>
+    {%for header in headers%}
+      <td><a href="javascript:moveLeft('{{header.0}}');refreshRoster();">&lt;</a> <a href="javascript:orderBy('{{header.0}}');refreshRoster()">{%if orderby == header.0%}<b>{{header.1}}</b>{%else%}{{header.1}}{%endif%}</a> <a href="javascript:moveRight('{{header.0}}');refreshRoster();">&gt;</a></td>
+    {%endfor%}
+  </tr>
+  {%for user in data%}
+    <tr>
+      {%for cell in user%}
+        {%if cell.link%}
+          <td><a href="{{cell.link}}">{{cell.contents}}</a></td>
+        {%else%}
+          <td>{{cell}}</td>
+        {%endif%}
+      {%endfor%}
+    </tr>
+  {%endfor%}
+</table>

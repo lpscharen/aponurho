@@ -1,0 +1,67 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Service{%endblock%}
+
+{%block maincell%}
+<br />
+<table align=center border=1>
+  <tr>
+    <td width=100>Date</td>
+    <td>Service</td>
+    <td width=100>Hours</td>
+    <td>Remove?</td>
+  </tr>
+  {%for service in services%}
+    <tr>
+      <td>{{service.date}}</td>
+      <td>{{service.type.name}}: {{service.description}}</td>
+      <td>{{service.hours}}</td>
+      <td>{%if service.type.permanentHours%}---{%else%}<a href="deleteservice?id={{service.id}}">Remove</a>{%endif%}</td>
+    </tr>
+  {%endfor%}
+  <tr>
+    <td>Countable:</td>
+    <td></td>
+    <td>{{countable}}</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Total:</td>
+    <td></td>
+    <td>{{hours}}</td>
+    <td></td>
+  </tr>
+</table>
+<center><h4>Add Service</h4></center>
+<form action="addservice" method="post">
+  {%csrf_token%}
+  <center>
+    <select name="type">
+      {%for serviceopp in serviceopps%}
+        <option value="{{serviceopp.id}}">{{serviceopp.name}}</option>
+      {%endfor%}
+    </select>
+  </center>
+  <br />
+  <center>Date: 
+    <select name="month">
+      {%for month in months%}
+        <option value="{{month.0}}">{{month.1}}</option>
+      {%endfor%}
+    </select>
+    <select name="day">
+      {%for day in days%}
+        <option value="{{day}}">{{day}}</option>
+      {%endfor%}
+    </select>
+    <input type="hidden" name="year" value="{{year}}" /> {{year}}
+  </center>
+  <br />
+  <center>Short description: <input type="text" name="desc" /></center><br />
+  <center># of hours: <input type="text" name="hours" /></center><br />
+  <center>
+    <input class="button" type="submit" name="submitbutton" value="Add Service" />
+  </center>
+  <br />
+</form>
+{%endblock%}

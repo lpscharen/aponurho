@@ -1,0 +1,17 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Fix Escort Shifts{%endblock%}
+
+{%block maincell%}
+<form action="escortfix" method="post">
+  {%csrf_token%}
+  <center>Choose member: 
+    <select name="userid">
+      {%for user in users%}
+        <option value="{{user.id}}">{{user.name}}</option>
+      {%endfor%}
+    </select>
+    <input class="button" type="submit" name="submitbutton" value="Go" />
+  </center>
+</form>
+{%endblock%}

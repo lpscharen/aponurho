@@ -1,0 +1,78 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Add Meeting Dates{%endblock%}
+
+{%block maincell%}
+<br />
+<table align=center border=1>
+  <tr>
+    <td>
+      Meeting Date
+    </td>
+    <td>
+      Type
+    </td>
+    <td>
+      Remove
+    </td>
+  </tr>
+  {%for meeting in meetings%}
+    <tr>
+      <td>
+        {{meeting.date}}
+      </td>
+      <td>
+        {%if meeting.brother%}Brother's{%else%}Exec{%endif%}
+      </td>
+      <td>
+        <a href="doremovemeeting?id={{meeting.id}}">Remove</a>
+      </td>
+    </tr>
+  {%endfor%}
+</table>
+<br />
+<center>Exec Meeting</center>
+<form action="doaddmeeting" method=post> 
+  {%csrf_token%}
+  <center>
+    <select name="month">
+      {%for month in months%}
+        <option value="{{month.0}}">{{month.1}}</option>
+      {%endfor%}
+    </select>
+    <select name="day">
+      {%for day in days%}
+        <option value="{{day}}">{{day}}</option>
+      {%endfor%}
+    </select>
+    <input type="hidden" name="year" value="{{year}}" /> {{year}}
+  </center> 
+  <center>
+    <input type="hidden" name="type" value="exec" />
+    <input class="button" type="submit" value="Add Date" />
+  </center>
+</form>
+<br />
+<center>Brother's Meeting</center>
+<form action="doaddmeeting" method=post> 
+  {%csrf_token%}
+  <center>
+    <select name="month">
+      {%for month in months%}
+        <option value="{{month.0}}">{{month.1}}</option>
+      {%endfor%}
+    </select>
+    <select name="day">
+      {%for day in days%}
+        <option value="{{day}}">{{day}}</option>
+      {%endfor%}
+    </select>
+    <input type="hidden" name="year" value="{{year}}" /> {{year}}
+  </center> 
+  <center>
+    <input type="hidden" name="type" value="brother" />
+    <input class="button" type="submit" value="Add Date" />
+  </center>
+</form>
+<br />
+{%endblock%}

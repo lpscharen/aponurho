@@ -1,0 +1,32 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Add Service Opportunities{%endblock%}
+
+{%block maincell%}
+  <br />
+  <table align=center border=1>
+    <tr>
+      <td>Opportunity</td>
+      <td>Max Hours</td>
+      <td>Delete</td>
+    </tr>
+    {%for service in services%}
+      <tr>
+        <td>{{service.name}}</td>
+        <td>{%if not service.maxCountableGroup%}---{%else%}{{service.maxCountableGroup.maxCountable}}{%endif%}</td>
+        <td>{%if service.permanentOpp%}---{%else%}<a href="deleteservice?id={{service.id}}">Delete</a>{%endif%}</td>
+      </tr>
+    {%endfor%}
+  </table>
+  <br />
+  <form action="addservice" method=post>
+    {%csrf_token%}
+    <center>Add Service Opportunity</center>
+    <center>Name: <input type="text" name="name" /></center>
+    <center>Max Hours*: <input type="text" name="maxhours" /></center>
+    <center>
+      <input class="button" type="submit" name="submitbutton" value="Add Opportunity" />
+    </center>
+    <br /><center><small>*Leave blank for no maximum.</small></center>
+  </form>
+{%endblock%}

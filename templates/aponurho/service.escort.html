@@ -1,0 +1,31 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Escort Signup{%endblock%}
+
+{%block maincell%}
+  {%if message%}
+  <br />
+  <center>{{message}}</center>
+  {%endif%}
+  <br />
+  <table align=center border=1> 
+    <tr>
+      <td>Date</td>
+      <td>Time</td>
+      <td>Sign Up</td>
+    </tr>
+    {%for shift in shifts%}
+      <tr>
+        <td>{{shift.date}}</td>
+        <td>{%if shift.shift%}11:30-2:00{%else%}9:00-11:30{%endif%}</td>
+        <td>
+          {%if shift in myshifts%}
+            <a href="deleteescort?id={{shift.id}}">Unsign Up</a>
+          {%else%}
+            <a href="addescort?id={{shift.id}}">Sign Up</a>
+          {%endif%}
+        </td>
+      </tr>
+    {%endfor%}
+  </table>
+{%endblock%}

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="#" />
+<meta name="keywords" content="#" />
+<meta name="author" content="#" />
+<link rel="stylesheet" type="text/css" href="/static/prozac_afternoon.css" media="screen" />
+<title>Django : hosting</title>
+</head>
+<body>
+<div class="wrap clearfix">
+{% autoescape off %}
+  <div class="header"><strong>Welcome:</strong> Our new django powered website </div>
+  <div class="topnav" id="nav">{% block topnav %}
+    <ul>
+      <li><a href="#">home</a></li>
+      <li><a href="#">about</a></li>
+      <li><a href="#">forum</a></li>
+      <li><a href="#">design</a></li>
+      <li><a href="#">info</a></li>
+      <li><a href="#">contact</a></li>
+    </ul>{% endblock %}
+  </div>
+  <div class="container clearfix">
+    <div class="news_right clearfix" id="news">
+      <div class="news_cnr_top"><img src="/static/images/cnr_tl.gif" alt="" width="8" height="8" class="cnr" style="display: none" /></div>{%block rightbox %}
+      {% endblock %}
+      <div class="news_cnr_bottom"><img src="/static/images/cnr_bl.gif" alt="" width="8" height="8" class="cnr" style="display: none" /></div>
+    </div>{%block mainbox %}
+    
+	{% endblock %}
+  </div>
+  <div class="footer" id="footer"> {% block footer %} <a href="#">home</a>&nbsp;&nbsp;:&nbsp;&nbsp; <a href="#">about</a>&nbsp;&nbsp;:&nbsp;&nbsp; <a href="#">forum</a>&nbsp;&nbsp;:&nbsp;&nbsp; <a href="#">design</a>&nbsp;&nbsp;:&nbsp;&nbsp; <a href="#">info</a>&nbsp;&nbsp;:&nbsp;&nbsp; <a href="#">contact</a> {% endblock %}</div>
+{% endautoescape %}
+
+</div>
+</body>
+</html>

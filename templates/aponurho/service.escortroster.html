@@ -1,0 +1,52 @@
+{%extends "aponurho/sidebar.html"%}
+
+{%block header%}Escort Signup{%endblock%}
+
+{%block maincell%}
+  {%if message%}
+  <br />
+  <center>{{message}}</center>
+  {%endif%}
+  <br />
+  <table align=center border=1> 
+    <tr>
+      <td>Shift</td>
+      <td>People</td>
+    </tr>
+    {%if all%}
+      <tr><td colspan="2"><center><a href="escortroster">Hide past shifts</a></center></td></tr>
+      {%for shift in hiddenshifts%}
+        <tr>
+          <td rowspan="{%firstof shift.semesterrequirements_set.count "1"%}">{{shift.date}}: {%if shift.shift%}11:30-2:00{%else%}9:00-11:30{%endif%}</td>
+          {%for semreq in shift.semesterrequirements_set.all%}
+            <td>
+              {{semreq.user.name}}
+            </td>
+            {%if not forloop.last%}
+              </tr><tr>
+            {%endif%}
+          {%empty%}
+          <td></td>
+          {%endfor%}
+        </tr>
+      {%endfor%}
+    {%else%}
+      <tr><td colspan="2"><center><a href="escortroster?all">Show all</a></center></td></tr>
+    {%endif%}
+    {%for shift in visibleshifts%}
+      <tr>
+        <td rowspan="{%firstof shift.semesterrequirements_set.count "1"%}">{{shift.date}}: {%if shift.shift%}11:30-2:00{%else%}9:00-11:30{%endif%}</td>
+        {%for semreq in shift.semesterrequirements_set.all%}
+          <td>
+            {{semreq.user.name}}
+          </td>
+          {%if not forloop.last%}
+            </tr><tr>
+          {%endif%}
+        {%empty%}
+        <td></td>
+        {%endfor%}
+      </tr>
+    {%endfor%}
+  </table>
+{%endblock%}
