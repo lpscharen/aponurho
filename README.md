@@ -53,7 +53,7 @@ In order to avoid an error with the following command you will then have to run 
 
 # Useful commands:
 Clone Django app from github:
-<pre>git clone https://github.com/itpir/aponurho.git </pre>
+<pre>git clone https://github.com/lpscharen/aponurho.git </pre>
 
 Make a local branch (this branches off of your last commit):
 <pre>git checkout -b [branch] </pre>
