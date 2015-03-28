@@ -74,7 +74,7 @@ def addService(request):
         return HttpResponseRedirect("/main")
     a = sType.name
     if (a.encode('ascii','ignore').find("Escort") != -1) or (a.encode('ascii', 'ignore').find("escort") != -1):
-        semreqs.escortHours = semreqs.escortHours + Decimal(request.POST['hours'].encode('ascii','ignore'))
+        semreqs.escortHours = Decimal(str(float(semreqs.escortHours) + float(request.POST['hours'].encode('ascii','ignore'))))
         semreqs.save()
     updateService(user, currentSemester)
     return HttpResponseRedirect("/service")
@@ -95,7 +95,7 @@ def deleteService(request):
         return HttpResponseRedirect("/main")
     a = service.type.name
     if (a.encode('ascii', 'ignore').find("Escort") != -1) or (a.encode('ascii', 'ignore').find("escort") != -1):
-        semreqs.escortHours -= service.hours
+        semreqs.escortHours -= Decimal(str(service.hours))
         semreqs.save()
     service.delete()
     updateService(user, currentSemester)
