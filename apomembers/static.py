@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import Context, loader
-from PIL import Image
+#from PIL import Image
 
 def css(request, cssfile):
     t = loader.get_template('aponurho/' + cssfile)

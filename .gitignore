@@ -1,0 +1,3 @@
+*.db
+settings.py
+apomembers/static.py

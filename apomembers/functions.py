@@ -2,7 +2,6 @@ from djangoproject.apomembers.models import User, Challenge, PledgeClass, Semest
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import date
 from operator import itemgetter
-from decimal import Decimal
 
 def getUser(request, permissionName=None):
     if 'key' not in request.COOKIES:
@@ -57,8 +56,8 @@ def updateService(user, currentSemester):
         else:
             oppGroups[service.type.maxCountableGroup] = service.hours
     countable = sum([min(oppGroup.maxCountable if oppGroup is not None else 10000, oppGroups[oppGroup]) for oppGroup in oppGroups])
-    semreqs.service = Decimal(str(countable))
-    semreqs.serviceTotal = Decimal(str(total))
+    semreqs.service = countable
+    semreqs.serviceTotal = total
     semreqs.save()
 
 def calcProbSemReqs(probreqs, semreqs):
